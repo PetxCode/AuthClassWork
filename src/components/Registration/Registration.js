@@ -1,8 +1,10 @@
-import { Button } from "antd";
+import { Button, Input } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { app } from "../../base";
+import UploadImage from "./UploadImage";
 
+const store = app.storage();
 const newUser = app.firestore().collection("users");
 const Registration = () => {
   const hist = useHistory();
@@ -12,28 +14,20 @@ const Registration = () => {
 
   const [password, setPassword] = useState("");
   const [name1, setName1] = useState("");
-  const [photoFile, setPhotoFile] = useState("");
+  const [photoFile, setPhotoFile] = useState(null);
   const [profile, setProfile] = useState("");
+  const [picture, setPicture] = useState(null);
 
   const HandleToggle = () => {
     setToggle(!toggle);
   };
 
-  // const uploadImage = async (e) => {
-  //   const file = e.target.files[0];
-  //   const fileRef = app.storage().ref();
-  //   const storageRef = await fileRef.child(file.name);
-  //   await storageRef.put(file);
-  //   setPhotoFile(await storageRef.getDownloadURL());
-  // };
-
-  const uploadImage = async (e) => {
-    // e.preventDefault();
-    const File = e.target.files[0];
-    const storageRef = app.storage().ref();
-    const fileRef = storageRef.child(File.name);
-    await fileRef.put(File);
-    setPhotoFile(await fileRef.getDownloadURL());
+  const UploadPix = async (e) => {
+    const file = e.target.files[0];
+    const storageRef = store.ref();
+    const fileRef = storageRef.child(file.name);
+    await fileRef.put(file);
+    setPicture(await fileRef.getDownloadURL());
   };
 
   const SignUpUser = async () => {
@@ -46,7 +40,7 @@ const Registration = () => {
       password,
       email,
       profile,
-      // avatar: await photoFile,
+      avatar: await picture,
     });
 
     hist.push("/");
@@ -63,6 +57,7 @@ const Registration = () => {
       <center>
         <br />
         <br />
+
         <br />
         <div>
           <Link
@@ -83,7 +78,25 @@ const Registration = () => {
           <br />
           <br />
           <br />
-
+          <UploadImage
+            style={{
+              width: "300px",
+              paddingLeft: "10px",
+            }}
+          />
+          <Input
+            style={{
+              width: "300px",
+              paddingLeft: "10px",
+            }}
+            onClick={UploadPix}
+            type="file"
+            placeholder="PhotoFile"
+            value={photoFile}
+            onChange={(e) => {
+              setPhotoFile(e.target.value);
+            }}
+          />
           <br />
           <br />
           <input
@@ -241,17 +254,3 @@ const Registration = () => {
 };
 
 export default Registration;
-
-// <input
-//   style={{
-//     width: "300px",
-//     paddingLeft: "10px",
-//   }}
-//   onClick={uploadImage}
-//   type="file"
-//   placeholder="PhotoFile"
-//   value={photoFile}
-//   onChange={(e) => {
-//     setPhotoFile(e.target.value);
-//   }}
-// />

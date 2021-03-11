@@ -1,29 +1,37 @@
 import "antd/dist/antd.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { AppProvider } from "./components/ContextAPI/AuthState";
+import ImageUpload from "./components/FileUpload/ImageUpload";
 import CourseScreen from "./components/Registration/Course";
 import HomeScreen from "./components/Registration/HomeScreen";
 import PrivateRoute from "./components/Registration/PrivateRoute";
 import Registration from "./components/Registration/Registration";
 import StudyScreen from "./components/Registration/Study";
 import HeaderView from "./HeaderView";
+import { AuthProvider } from "./WorkFile/Context/AuthManager";
+import HomeDesign from "./WorkFile/HomeDesign/HomeDesign";
+import UserRegistration from "./WorkFile/HomeDesign/UserRegistration";
 
 function App() {
   return (
     <div>
-      <AppProvider>
+      <AuthProvider>
         <Router>
           {" "}
           <Switch>
-            <Route exact path="/login" component={Registration} />
-            <Route exact path="/" component={HomeScreen} />
-            <PrivateRoute exact path="/course" component={CourseScreen} />
-            <PrivateRoute exact path="/study" component={StudyScreen} />
+            <Route exact path="/" component={HomeDesign} />
+            <Route exact path="/reg" component={UserRegistration} />
           </Switch>
         </Router>
-      </AppProvider>
+      </AuthProvider>
     </div>
   );
 }
 
 export default App;
+
+// <Route exact path="/login" component={Registration} />
+//             <Route exact path="/" component={HomeScreen} />
+//             <Route exact path="/upload" component={ImageUpload} />
+//             <PrivateRoute exact path="/course" component={CourseScreen} />
+//             <PrivateRoute exact path="/study" component={StudyScreen} />
