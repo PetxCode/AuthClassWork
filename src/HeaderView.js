@@ -47,7 +47,7 @@ const HeaderView = () => {
         </div>
         <div>
           <Link
-            to="/study"
+            to="/stu"
             style={{
               textDecoration: "none",
               fontWeight: "bold",

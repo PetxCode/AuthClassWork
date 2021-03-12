@@ -1,12 +1,14 @@
 import { Button, Input } from "antd";
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { app } from "../../base";
 
 const userCase = app.firestore().collection("authUser");
-const hist = useHistory;
+
 const UserRegistration = () => {
+  const hist = useHistory();
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

@@ -23,19 +23,25 @@ const HeaderFile = () => {
             alignItems: "center",
           }}
         >
-          <img
-            style={{
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              objectFit: "cover",
-              border: "2px solid white",
-            }}
-            src={newCurrent && newCurrent.avatar}
-            alt="Avatar"
-          />
+          {current ? (
+            <img
+              style={{
+                width: "50px",
+                height: "50px",
+                borderRadius: "50%",
+                objectFit: "cover",
+                border: "2px solid white",
+              }}
+              src={newCurrent && newCurrent.avatar}
+              alt="Avatar"
+            />
+          ) : null}
 
-          <div style={{ color: "white" }}>{newCurrent && newCurrent.name}</div>
+          {current ? (
+            <div style={{ color: "white" }}>
+              {newCurrent && newCurrent.name}
+            </div>
+          ) : null}
         </div>
         <div>
           <Link
@@ -44,6 +50,7 @@ const HeaderFile = () => {
               fontWeight: "bold",
               fontSize: "16px",
             }}
+            to="/"
           >
             Logo
           </Link>
@@ -55,6 +62,7 @@ const HeaderFile = () => {
               fontWeight: "bold",
               fontSize: "16px",
             }}
+            to="/cos"
           >
             Courses
           </Link>
@@ -66,6 +74,7 @@ const HeaderFile = () => {
               fontWeight: "bold",
               fontSize: "16px",
             }}
+            to="/stu"
           >
             Study
           </Link>
