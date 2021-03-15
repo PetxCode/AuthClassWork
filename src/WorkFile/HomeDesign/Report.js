@@ -8,9 +8,9 @@ const regCourse = app.firestore().collection("authUser");
 
 const Report = () => {
   const [report, setReport] = useState("");
-  const [rateAttention, setRateAttention] = useState(0);
-  const [ratePerformance, setRatePerformance] = useState(0);
-  const [rateLearning, setRateLearning] = useState(0);
+  const [rateAttention, setRateAttention] = useState("");
+  const [ratePerformance, setRatePerformance] = useState("");
+  const [rateLearning, setRateLearning] = useState("");
 
   const [chnBtn, setChnBtn] = useState(true);
 
@@ -22,13 +22,34 @@ const Report = () => {
     const giveReport = await app.auth().currentUser;
 
     if (giveReport) {
-      await regCourse.doc(giveReport.uid).collection("ClassReport").doc().set({
-        report,
-        rateAttention,
-        ratePerformance,
-        rateLearning,
+      await regCourse
+        .doc(giveReport.uid)
+        .collection("ClassReport")
+        .doc()
+        .set({
+          report,
+          rateAttention: parseInt(rateAttention),
+          ratePerformance: parseInt(ratePerformance),
+          rateLearning: parseInt(rateLearning),
+        });
+    }
+    setRateLearning("");
+    setRatePerformance("");
+    setRateAttention("");
+    setReport("");
+  };
+
+  const RatingPerformance = async () => {
+    const addedCourse = await app.auth().currentUser;
+    console.log(addedCourse.uid);
+    if (addedCourse) {
+      await regCourse.doc(addedCourse.uid).collection("Ratings").doc().set({
+        rateAttention: 4,
+        ratePerformance: 5,
+        rateLearning: 3,
       });
     }
+    console.log("Let's do it again");
   };
 
   const pickel3 = async () => {
@@ -61,7 +82,7 @@ const Report = () => {
       <br />
       <br />
       <center>
-        <form
+        <div
           style={{
             display: "flex",
             flexDirection: "column",
@@ -119,32 +140,68 @@ const Report = () => {
               setRateLearning(e.target.value);
             }}
           />
+        </div>
+        <Button
+          disabled={chnBtn}
+          onClick={() => {
+            EnterReport();
+            setChnBtn(false);
+            console.log("Hey again");
+          }}
+          type="primary"
+        >
+          Rating Performance
+        </Button>
 
-          <Button
-            type="primary"
-            disabled={chnState}
-            onChange={() => {
-              EnterReport();
-              setChnBtn(false);
-            }}
-          >
-            <Link to="/">SUBMIT Test</Link>{" "}
-          </Button>
-          <Button
-            style={{ color: "white", marginTop: "20px" }}
-            type="primary"
-            disabled={chnState}
-            onChange={() => {
-              EnterReport();
-              setChnBtn(false);
-            }}
-          >
-            <Link style={{ color: "white" }}>SUBMIT REPORT</Link>{" "}
-          </Button>
-        </form>
+        <button
+          disabled={chnBtn}
+          onClick={() => {
+            setChnBtn(!chnBtn);
+            console.log("Change State");
+            console.log(chnBtn);
+          }}
+        >
+          Change State
+        </button>
       </center>
     </div>
   );
 };
 
 export default Report;
+
+// <Button
+// type="primary"
+// disabled={chnState}
+// onChange={() => {
+//   EnterReport();
+//   setChnBtn(false);
+// }}
+// >
+// <Link to="/" style={{ color: "white" }}>
+//   SUBMIT Test
+// </Link>{" "}
+// </Button>
+// <Button
+// style={{ color: "white", marginTop: "20px" }}
+// type="primary"
+// disabled={chnState}
+// onChange={() => {
+//   EnterReport();
+//   setChnBtn(false);
+// }}
+// >
+// <Link style={{ color: "white" }}>SUBMIT REPORT</Link>{" "}
+// </Button>
+// <Button
+// style={{ color: "white", marginTop: "20px" }}
+// type="primary"
+// disabled={chnState}
+// onChange={() => {
+//   RatingPerformance();
+//   setChnBtn(false);
+//   console.log("Let's do it again");
+// }}
+// >
+// <Link style={{ color: "white" }}>Rating Performance</Link>{" "}
+// </Button>
