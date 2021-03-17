@@ -79,6 +79,18 @@ const HeaderFile = () => {
             Study
           </Link>
         </div>
+        <div>
+          <Link
+            style={{
+              color: "white",
+              fontWeight: "bold",
+              fontSize: "16px",
+            }}
+            to="/rent"
+          >
+            Rent Now
+          </Link>
+        </div>
         {current ? (
           <Button
             onClick={(e) => {

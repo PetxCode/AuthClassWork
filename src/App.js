@@ -15,6 +15,9 @@ import HomeDesign from "./WorkFile/HomeDesign/HomeDesign";
 import Report from "./WorkFile/HomeDesign/Report";
 import StudyScreen from "./WorkFile/HomeDesign/StudyPage";
 import UserRegistration from "./WorkFile/HomeDesign/UserRegistration";
+import RentAHome from "./RentAHome/RantAHome";
+import PostAHome from "./RentAHome/PostAHome";
+import ViewDetail from "./RentAHome/ViewDetail";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
           {" "}
           <Switch>
             <Route exact path="/" component={HomeDesign} />
+            <Route exact path="/edit/:id" component={ViewDetail} />
+            <Route exact path="/rent" component={RentAHome} />
+            <Route exact path="/post" component={PostAHome} />
             <Route exact path="/reg" component={UserRegistration} />
             <PrivateRoute exact path="/cos" component={Courese} />
             <PrivateRoute exact path="/report" component={Report} />

@@ -58,6 +58,19 @@ const HeaderView = () => {
             Study{" "}
           </Link>
         </div>
+        <div>
+          <Link
+            to="/stu"
+            style={{
+              textDecoration: "none",
+              fontWeight: "bold",
+              color: "white",
+              fontSize: "18px",
+            }}
+          >
+            Rent Now{" "}
+          </Link>
+        </div>
 
         <div>{currentUser ? <div> {currentUser.email} </div> : null}</div>
 

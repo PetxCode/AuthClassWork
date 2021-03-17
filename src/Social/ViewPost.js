@@ -5,6 +5,7 @@ import AddImage from "./AddImage";
 import moment from "moment";
 import CommentPost from "./CommentPost";
 import { Input } from "antd";
+import ShowAgeinImage from "../RentAHome/ShowAgeinImage";
 
 const view = app.firestore().collection("post");
 const commentPost = app.firestore().collection("post");
@@ -74,6 +75,7 @@ const ViewPost = () => {
               <div>
                 {" "}
                 <AddImage createdBy={createdBy} />
+               
               </div>
               <div
                 style={{
